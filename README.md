@@ -4,6 +4,7 @@
 by `build_google_ads_feed.py` (columns unchanged: ID, Item title, Final URL, Image URL, item description, Item category, Price, Sale price).
 The price tested is the Sale price when it is lower than Price, otherwise Price (what the shopper pays). Change `MIN_PRICE` in the script to move the threshold.
 Products with no image (empty or `no_selection` placeholder Image URL) are dropped.
+`Formatted price` / `Formatted sale price` are added in the JTclima style (euro sign first, no cents on whole prices, e.g. `€1 779`, `€659,50`); `Sale price` and `Formatted sale price` are empty unless the product is really discounted.
 
     python3 build_google_ads_feed.py <google-new.csv> <out.csv>
 
