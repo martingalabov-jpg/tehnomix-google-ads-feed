@@ -1,8 +1,10 @@
 # Tehnomix - Google Ads product feed
 
-`tehnomix-google-ads-feed.csv` is an unmodified copy of https://www.tehnomix.bg/media/feed/google-new.csv
-(columns: ID, Item title, Final URL, Image URL, item description, Item category, Price, Sale price).
-The source is already in Google Ads custom-feed format, so there is no converter step.
+`tehnomix-google-ads-feed.csv` is https://www.tehnomix.bg/media/feed/google-new.csv filtered to products over 50 EUR
+by `build_google_ads_feed.py` (columns unchanged: ID, Item title, Final URL, Image URL, item description, Item category, Price, Sale price).
+The price tested is the Sale price when it is lower than Price, otherwise Price (what the shopper pays). Change `MIN_PRICE` in the script to move the threshold.
+
+    python3 build_google_ads_feed.py <google-new.csv> <out.csv>
 
 Stable raw URL for Google Sheets (`IMPORTDATA`), Merchant Center or Google Ads scheduled fetch:
 
