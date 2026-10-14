@@ -3,6 +3,7 @@
 `tehnomix-google-ads-feed.csv` is https://www.tehnomix.bg/media/feed/google-new.csv filtered to products over 50 EUR
 by `build_google_ads_feed.py` (columns unchanged: ID, Item title, Final URL, Image URL, item description, Item category, Price, Sale price).
 The price tested is the Sale price when it is lower than Price, otherwise Price (what the shopper pays). Change `MIN_PRICE` in the script to move the threshold.
+Products with no image (empty or `no_selection` placeholder Image URL) are dropped.
 
     python3 build_google_ads_feed.py <google-new.csv> <out.csv>
 

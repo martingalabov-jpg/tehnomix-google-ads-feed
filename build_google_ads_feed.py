@@ -17,8 +17,11 @@ with open(SRC, encoding="utf-8-sig", newline="") as f:
     header = rd.fieldnames
     src = list(rd)
 
-rows = []
+rows, no_image = [], 0
 for r in src:
+    if not r["Image URL"].strip() or "no_selection" in r["Image URL"]:
+        no_image += 1
+        continue
     p, cur = money(r["Price"])
     if cur != "EUR":
         raise SystemExit("Unexpected currency %s for %s - output NOT written" % (cur, r["ID"]))
@@ -32,4 +35,5 @@ with open(OUT, "w", newline="", encoding="utf-8") as f:
     w = csv.writer(f)
     w.writerow(header)
     w.writerows(rows)
-print("%d in, %d out, %d dropped (<= %g EUR)" % (len(src), len(rows), len(src) - len(rows), MIN_PRICE))
+print("%d in, %d out, %d dropped (%d no image, rest <= %g EUR)" % (
+    len(src), len(rows), len(src) - len(rows), no_image, MIN_PRICE))
