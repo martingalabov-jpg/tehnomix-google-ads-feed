@@ -1,7 +1,7 @@
 name: Refresh Tehnomix Google Ads feed
 on:
   schedule:
-    - cron: "0 6,18 * * *"   # every 12 h: 06:00/18:00 UTC = 09:00/21:00 Sofia (summer), 08:00/20:00 (winter)
+    - cron: "0 */6 * * *"   # every 6 h: 00/06/12/18 UTC = 03:00/09:00/15:00/21:00 Sofia (summer), one hour earlier in winter
   workflow_dispatch: {}
 permissions:
   contents: write

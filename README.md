@@ -11,7 +11,7 @@ Stable raw URL for Google Sheets (`IMPORTDATA`), Merchant Center or Google Ads s
 
     https://raw.githubusercontent.com/martingalabov-jpg/tehnomix-google-ads-feed/main/tehnomix-google-ads-feed.csv
 
-Refreshed every 12 hours by the GitHub Actions workflow `.github/workflows/refresh-feed.yml` (cron 06:00 and 18:00 UTC; GitHub often starts scheduled runs late).
+Refreshed every 6 hours by the GitHub Actions workflow `.github/workflows/refresh-feed.yml` (cron 00:00, 06:00, 12:00 and 18:00 UTC; GitHub often starts scheduled runs late).
 Cloudflare stopped blocking GitHub's runners on 2026-10-14; before that the refresh ran on Martin's PC. `refresh.ps1` is that old Task Scheduler version, kept as a fallback (its task is disabled; `git pull` before re-enabling).
 The run aborts without publishing if the download is not the feed CSV, the source has fewer than 3000 products, or fewer than 1500 remain after filtering.
 Sibling repo: `tehnomix-feed` (OpenAI Ads feed).
