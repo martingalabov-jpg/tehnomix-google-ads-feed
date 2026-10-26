@@ -35,6 +35,7 @@ One feed per category asset group in `Tehnomix -- General-Pmax`, split from `teh
 | Tehnomix -- Климатици | `pmax/klimatici.csv` |
 | Tehnomix -- Пречистватели за въздух | `pmax/prechistvateli.csv` |
 | Tehnomix -- Кафемашини | `pmax/kafemashini.csv` |
+| Tehnomix -- Телевизори (Tehnomix -- Pmax TV) | `pmax/televizori.csv` |
 
 Raw URL: `https://raw.githubusercontent.com/martingalabov-jpg/tehnomix-google-ads-feed/main/pmax/<file>.csv`
 

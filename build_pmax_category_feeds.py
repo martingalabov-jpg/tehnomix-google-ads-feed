@@ -49,6 +49,7 @@ GROUPS = [   # slug, category prefixes, title regex for promo buckets
     ('prechistvateli',
      ['Климатизация/Отопление > Пречистватели и Овлажнители', 'Климатизация/Отопление > Грижа за въздуха с Dyson > Пречистватели'],
      r'пречиствател|овлажнител'),
+    ('televizori', ['Черна техника и IT > Телевизори'], r'^телевизор'),   # separate Tehnomix -- Pmax TV (high tROAS)
     ('kafemashini',
      ['Малки електроуреди > Кафемашини > ' + x for x in ('Кафеавтомати', 'Кафемашини еспресо', 'Кафемашини с капсули', 'Шварц кафемашини')],
      r'кафемашина|кафеавтомат'),
@@ -91,6 +92,7 @@ LANDING = {
     'roboti-prahosmukachki': 'https://www.tehnomix.bg/malki-elektrouredi/prahosmukachki/prahosmukachki-robot',
     'bezzhichni-prahosmukachki': 'https://www.tehnomix.bg/malki-elektrouredi/prahosmukachki/portativni-prahosmukachki',
     'krasota-i-grizha': 'https://www.tehnomix.bg/malki-elektrouredi/grizha-za-tyaloto/perfekten-stil',
+    'televizori': 'https://www.tehnomix.bg/cherna-tehnika-i-it/televizori',
 }
 
 os.makedirs(OUT, exist_ok=True)
