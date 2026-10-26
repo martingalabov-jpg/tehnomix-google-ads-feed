@@ -42,3 +42,11 @@ A product is placed by its `Item category` path. Products the site parks in prom
 "Shark & Ninja", "Нови продукти" ...) are placed by their title instead, with built-in appliances going to
 Уреди за вграждане. Accessories, consumables, wine coolers, stain cleaners, window robots and mobile ACs never go in.
 A category feed that would drop below 5 products is not overwritten, so the last good file stays.
+
+### Page feeds (`pmax-pages/`)
+
+The same split as Google Ads **page feeds**: exactly two columns, `Page URL` and `Custom label` (the slug with
+underscores, e.g. `kuhnenski_uredi`). The asset group's category page comes first, then every product page.
+In Google Ads (Tools ▸ Business data) each `20261026-<Category>` page feed has an HTTPS schedule pointing at
+`https://raw.githubusercontent.com/martingalabov-jpg/tehnomix-google-ads-feed/main/pmax-pages/<slug>.csv`.
+Do not upload the `pmax/` product files into a page feed - they have no `Page URL` header and every row fails.

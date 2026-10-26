@@ -34,14 +34,14 @@ jobs:
           echo "rows=$rows"
           [ "$rows" -ge 1500 ] || { echo "Only $rows products - refusing to publish"; git checkout -- tehnomix-google-ads-feed.csv; exit 1; }
       - name: Build PMax category feeds (only from a feed that passed the sanity check)
-        run: python build_pmax_category_feeds.py tehnomix-google-ads-feed.csv pmax
+        run: python build_pmax_category_feeds.py tehnomix-google-ads-feed.csv pmax pmax-pages
       - name: Record run (keeps the schedule alive; GitHub pauses scheduled jobs after 60 days without commits)
         run: date -u +"%Y-%m-%dT%H:%M:%SZ" > last_run.txt
       - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tehnomix-google-ads-feed.csv pmax/*.csv last_run.txt
+          git add tehnomix-google-ads-feed.csv pmax/*.csv pmax-pages/*.csv last_run.txt
           git commit -m "Refresh feed $(date -u +'%F %H:%M UTC')" || echo "nothing to commit"
           git pull --rebase -X theirs origin main
           git push

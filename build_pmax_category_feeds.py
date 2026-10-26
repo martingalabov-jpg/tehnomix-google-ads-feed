@@ -6,10 +6,13 @@ utm_content tag.
 A product goes to a group by its 'Item category' path. Products parked in promo buckets (Liebherr 2+8,
 Miele 25 years, "Shark & Ninja", "Нови продукти" ...) carry no real category there, so those are placed
 by their title instead. Accessories, consumables, wine coolers, stain cleaners and window robots never go in.
-Usage: python3 build_pmax_category_feeds.py <tehnomix-google-ads-feed.csv> <out_dir>"""
+Each category also gets a Google Ads page feed in <pages_dir>/<slug>.csv (Page URL, Custom label), which the
+account's page feeds fetch over HTTPS on a schedule.
+Usage: python3 build_pmax_category_feeds.py <tehnomix-google-ads-feed.csv> <out_dir> [<pages_dir>]"""
 import csv, os, re, sys
 
 SRC, OUT = sys.argv[1], sys.argv[2]
+PAGES = sys.argv[3] if len(sys.argv) > 3 else 'pmax-pages'
 MIN_ROWS = 5   # a category feed that would drop below this is not overwritten (keeps the last good one)
 
 K = 'Малки електроуреди > Уреди за кухня > '
@@ -82,7 +85,16 @@ for r in rows:
     if hit:
         out[hit].append(r)
 
+# Asset group Final URLs (HTTP-checked 2026-10-26) go first in each page feed, before the product pages.
+LANDING = {
+    'kuhnenski-uredi': 'https://www.tehnomix.bg/malki-elektrouredi/uredi-za-kuhnyata',
+    'roboti-prahosmukachki': 'https://www.tehnomix.bg/malki-elektrouredi/prahosmukachki/prahosmukachki-robot',
+    'bezzhichni-prahosmukachki': 'https://www.tehnomix.bg/malki-elektrouredi/prahosmukachki/portativni-prahosmukachki',
+    'krasota-i-grizha': 'https://www.tehnomix.bg/malki-elektrouredi/grizha-za-tyaloto/perfekten-stil',
+}
+
 os.makedirs(OUT, exist_ok=True)
+os.makedirs(PAGES, exist_ok=True)
 for slug, items in out.items():
     path = os.path.join(OUT, slug + '.csv')
     if len(items) < MIN_ROWS:
@@ -92,4 +104,10 @@ for slug, items in out.items():
         w = csv.DictWriter(f, fieldnames=header)
         w.writeheader()
         w.writerows(items)
+    # Google Ads page feed: exactly 'Page URL' + 'Custom label'; the label is the slug with underscores
+    urls = ([LANDING[slug]] if slug in LANDING else []) + [r['Final URL'].split('?')[0] for r in items]
+    with open(os.path.join(PAGES, slug + '.csv'), 'w', newline='', encoding='utf-8') as f:
+        w = csv.writer(f)
+        w.writerow(['Page URL', 'Custom label'])
+        w.writerows([u, slug.replace('-', '_')] for u in dict.fromkeys(urls))
     print('%-26s %4d rows' % (slug, len(items)))
